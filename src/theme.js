@@ -4,7 +4,7 @@ const COLORS = {
 	LIGHT_GREY: '#F5F5F5',
 	GREY: '#ABABAB',
 	DARK_GREY: '#666666',
-	YELLOW: '#F2C938',
+	YELLOW: '#F2BE38',
 	BLACK: '#1D1C1B',
 };
 
@@ -40,6 +40,8 @@ let theme = createTheme({
 				root: ({ theme }) => ({
 					textTransform: 'none',
 					fontSize: '1.125rem',
+					paddingTop: theme.spacing(1),
+					paddingBottom: theme.spacing(1),
 
 					':not(.MuiButton-text)': {
 						paddingLeft: theme.spacing(4),

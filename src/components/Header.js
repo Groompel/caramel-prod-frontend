@@ -4,6 +4,7 @@ import {
 	Inventory,
 	Login,
 	Menu,
+	Person,
 	Settings,
 } from '@mui/icons-material';
 import {
@@ -19,7 +20,7 @@ import {
 	useMediaQuery,
 	useTheme,
 } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NAV_LINKS } from '../constants';
 import { toggleSideMenu } from '../store/appSlice';
 import Logo from './Logo';
@@ -44,6 +45,7 @@ export default function Header() {
 	const theme = useTheme();
 	const matches768pxDown = useMediaQuery(theme.breakpoints.down(768));
 	const dispatch = useDispatch();
+	const isSignedIn = useSelector((state) => state.auth.isSignedIn);
 
 	const onSideMenuToggle = () => {
 		dispatch(toggleSideMenu());
@@ -76,16 +78,29 @@ export default function Header() {
 									{link.text}
 								</Link>
 							))}
-							<Button
-								className="link"
-								component={RouterLink}
-								endIcon={<Login />}
-								to="/sign-in"
-								color="inherit"
-								sx={{ opacity: 0.7, fontWeight: 400 }}
-							>
-								Войти
-							</Button>
+							{isSignedIn ? (
+								<Button
+									className="link"
+									component={RouterLink}
+									endIcon={<Person />}
+									to="/profile"
+									color="inherit"
+									sx={{ opacity: 0.7, fontWeight: 400 }}
+								>
+									Кабинет
+								</Button>
+							) : (
+								<Button
+									className="link"
+									component={RouterLink}
+									endIcon={<Login />}
+									to="/sign-in"
+									color="inherit"
+									sx={{ opacity: 0.7, fontWeight: 400 }}
+								>
+									Войти
+								</Button>
+							)}
 						</Stack>
 					)}
 				</Container>

@@ -6,6 +6,7 @@ import {
 	Stack,
 	styled,
 } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { NAV_LINKS, SOCIAL_LINKS } from '../constants';
 import Logo from './Logo';
 import RouterLink from './RouterLink';
@@ -17,6 +18,8 @@ const FooterContainer = styled('footer')(({ theme }) => ({
 }));
 
 export default function Footer() {
+	const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+
 	return (
 		<FooterContainer>
 			<Container maxWidth="lg">
@@ -64,15 +67,27 @@ export default function Footer() {
 									{link.text}
 								</Link>
 							))}
-							<Link
-								component={RouterLink}
-								to="/sign-in"
-								color="inherit"
-								underline="hover"
-								className="link"
-							>
-								Вход
-							</Link>
+							{isSignedIn ? (
+								<Link
+									component={RouterLink}
+									to="/profile"
+									color="inherit"
+									underline="hover"
+									className="link"
+								>
+									Кабинет
+								</Link>
+							) : (
+								<Link
+									component={RouterLink}
+									to="/sign-in"
+									color="inherit"
+									underline="hover"
+									className="link"
+								>
+									Вход
+								</Link>
+							)}
 						</Stack>
 					</Grid>
 

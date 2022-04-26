@@ -9,11 +9,15 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
+import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
+import { useQuery } from 'react-query';
 import MaskedField from '../components/MaskedField';
 import Paper from '../components/material/Paper';
 import RouterLink from '../components/RouterLink';
 import UserRequestForm from '../components/UserRequestForm';
+import withAuth from '../components/withAuth';
+import { API_URL } from '../constants';
 import formatTitle from '../utils/formatTitle';
 
 const PageContainer = styled('div')(({ theme }) => ({
@@ -88,7 +92,7 @@ const PageContainer = styled('div')(({ theme }) => ({
 	},
 }));
 
-export default function HomePage() {
+function HomePage() {
 	return (
 		<PageContainer>
 			<Helmet>
@@ -205,3 +209,5 @@ export default function HomePage() {
 		</PageContainer>
 	);
 }
+
+export default withAuth(HomePage, false, false);

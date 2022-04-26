@@ -21,6 +21,7 @@ const PasswordField = forwardRef(({ ...props }, ref) => {
 						onClick={onVisibilityToggleClick}
 						color="inherit"
 						edge="end"
+						size="large"
 					>
 						{isVisible ? <VisibilityOff /> : <Visibility />}
 					</IconButton>

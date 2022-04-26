@@ -1,26 +1,25 @@
-import { Mail } from '@mui/icons-material';
+import styled from '@emotion/styled';
+import { Lock, Mail, Person } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Box, Link, Stack, TextField, Typography } from '@mui/material';
-import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
-import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import Paper from '../components/material/Paper';
 import PasswordField from '../components/PasswordField';
 import RouterLink from '../components/RouterLink';
 import withAuth from '../components/withAuth';
-import { API_URL } from '../constants';
 import VALIDATORS from '../constants/validators';
 import AuthLayout from '../layouts/Auth';
-import { signIn } from '../store/authSlice';
+import { signUp } from '../store/authSlice';
 import formatTitle from '../utils/formatTitle';
 
-function SignInPage() {
+function SignUpPage() {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		getValues,
 	} = useForm();
 
 	const isLoading = useSelector((state) => state.auth.isLoading);
@@ -32,22 +31,23 @@ function SignInPage() {
 		}
 
 		data.email = data.email.trim();
+		data.name = data.name.trim();
 		data.password = data.password.trim();
 
-		dispatch(signIn(data));
+		dispatch(signUp(data));
 	};
 
 	return (
 		<AuthLayout>
 			<Helmet>
-				<title>{formatTitle('Вход')}</title>
+				<title>{formatTitle('Регистрация')}</title>
 			</Helmet>
 			<Paper padded component="form" onSubmit={handleSubmit(onSubmit)}>
 				<Typography variant="h5" mb={4}>
-					Вход
+					Регистрация
 				</Typography>
 
-				<Stack spacing={2}>
+				<Stack spacing={2} mb={4}>
 					<TextField
 						label="Email"
 						placeholder="danial@mail.com"
@@ -56,38 +56,51 @@ function SignInPage() {
 						}}
 						error={Boolean(errors.email)}
 						helperText={errors.email?.message}
-						disabled={isLoading}
 						{...register('email', VALIDATORS.EMAIL)}
+					/>
+					<TextField
+						label="Имя"
+						placeholder="Даниал"
+						InputProps={{
+							endAdornment: <Person />,
+						}}
+						error={Boolean(errors.name)}
+						helperText={errors.name?.message}
+						{...register('name', VALIDATORS.NAME)}
 					/>
 					<PasswordField
 						{...register('password', VALIDATORS.PASSWORD)}
-						disabled={isLoading}
 						error={Boolean(errors.password)}
 						helperText={errors.password?.message}
 					/>
+					<TextField
+						label="Повторите пароль"
+						type="password"
+						InputProps={{
+							endAdornment: <Lock />,
+						}}
+						error={Boolean(errors.passwordRepeat)}
+						helperText={errors.passwordRepeat?.message}
+						{...register('passwordRepeat', {
+							required: 'Повторите пароль',
+							validate: (value) =>
+								getValues('password') === value ? true : 'Пароли не совпадают',
+						})}
+					/>
 				</Stack>
-				<Box textAlign="right" mt={1.5} mb={2}>
-					<Link
-						component={RouterLink}
-						to="/send-reset-password"
-						color="inherit"
-					>
-						Забыли пароль?
-					</Link>
-				</Box>
+
 				<LoadingButton
 					type="submit"
 					fullWidth
 					variant="contained"
 					sx={{ mb: 2 }}
-					loading={isLoading}
 				>
-					Войти
+					Зарегистрироваться
 				</LoadingButton>
 				<Typography>
-					Нет аккаунта?{' '}
-					<Link component={RouterLink} to="/sign-up">
-						Регистрация
+					Есть аккаунт?{' '}
+					<Link component={RouterLink} to="/sign-in">
+						Вход
 					</Link>
 				</Typography>
 			</Paper>
@@ -95,4 +108,4 @@ function SignInPage() {
 	);
 }
 
-export default withAuth(SignInPage, false, true);
+export default withAuth(SignUpPage, false, true);

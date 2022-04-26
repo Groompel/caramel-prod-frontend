@@ -1,6 +1,7 @@
 import { Alert, Snackbar } from '@mui/material';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { SNACKBAR_SEVERITIES } from '../constants';
+import { useSelector } from 'react-redux';
 
 export const AppContext = createContext();
 
@@ -11,6 +12,8 @@ export function AppContextProvider({ children }) {
 	);
 	const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
+	const authErrorData = useSelector((state) => state.auth.errorData);
+
 	const onSnackbarClose = () => {
 		setIsSnackbarOpen(false);
 	};
@@ -20,6 +23,14 @@ export function AppContextProvider({ children }) {
 		setSnackbarSeverity(severity);
 		setIsSnackbarOpen(true);
 	};
+
+	useEffect(() => {
+		if (!authErrorData.display) {
+			return;
+		}
+
+		toast(authErrorData.message);
+	}, [authErrorData]);
 
 	const contextValue = {
 		toast,
