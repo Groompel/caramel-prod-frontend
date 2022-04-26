@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Grid, Paper, TextField, Typography } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SNACKBAR_SEVERITIES } from '../constants';
@@ -8,6 +8,7 @@ import VALIDATORS from '../constants/validators';
 import { AppContext } from '../contexts/AppContext';
 import ApiService from '../services/ApiService';
 import MaskedField from './MaskedField';
+import Paper from './material/Paper';
 
 export default function UserRequestForm() {
 	const {

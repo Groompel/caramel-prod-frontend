@@ -1,6 +1,7 @@
 import { useRoutes } from 'react-router-dom';
 import MainLayout from './layouts/Main';
 import HomePage from './pages/Home';
+import SignInPage from './pages/SignIn';
 
 const unauthedRoutes = {
 	path: '/',
@@ -9,6 +10,10 @@ const unauthedRoutes = {
 		{
 			path: '',
 			element: <HomePage />,
+		},
+		{
+			path: '/sign-in',
+			element: <SignInPage />,
 		},
 	],
 };

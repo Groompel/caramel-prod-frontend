@@ -10,20 +10,23 @@ import AppStyles from './styles';
 import { Provider } from 'react-redux';
 import store from './store';
 import { AppContextProvider } from './contexts/AppContext';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
 	return (
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
-				<AppContextProvider>
-					<div className="App">
-						<BrowserRouter>
-							<CssBaseline />
-							<AppStyles />
-							<Routes />
-						</BrowserRouter>
-					</div>
-				</AppContextProvider>
+				<HelmetProvider>
+					<AppContextProvider>
+						<div className="App">
+							<BrowserRouter>
+								<CssBaseline />
+								<AppStyles />
+								<Routes />
+							</BrowserRouter>
+						</div>
+					</AppContextProvider>
+				</HelmetProvider>
 			</ThemeProvider>
 		</Provider>
 	);

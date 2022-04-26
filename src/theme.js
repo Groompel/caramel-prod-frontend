@@ -48,26 +48,6 @@ let theme = createTheme({
 				}),
 			},
 		},
-		MuiPaper: {
-			variants: [
-				{
-					props: {
-						padded: true,
-					},
-					style: ({ theme }) => ({
-						padding: theme.spacing(4),
-
-						[theme.breakpoints.down('xl')]: {
-							padding: theme.spacing(3),
-						},
-
-						[theme.breakpoints.down('lg')]: {
-							padding: theme.spacing(2),
-						},
-					}),
-				},
-			],
-		},
 	},
 });
 

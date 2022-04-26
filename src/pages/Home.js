@@ -4,15 +4,17 @@ import {
 	Button,
 	Container,
 	Grid,
-	Paper,
 	Stack,
 	styled,
 	TextField,
 	Typography,
 } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
 import MaskedField from '../components/MaskedField';
+import Paper from '../components/material/Paper';
 import RouterLink from '../components/RouterLink';
 import UserRequestForm from '../components/UserRequestForm';
+import formatTitle from '../utils/formatTitle';
 
 const PageContainer = styled('div')(({ theme }) => ({
 	width: '100%',
@@ -89,6 +91,13 @@ const PageContainer = styled('div')(({ theme }) => ({
 export default function HomePage() {
 	return (
 		<PageContainer>
+			<Helmet>
+				<title>
+					{formatTitle(
+						'Самая вкусная и качественная карамель в Алматы по низким ценам напрямую с завода'
+					)}
+				</title>
+			</Helmet>
 			<Container maxWidth="lg" component="section" id="hero">
 				<Grid container>
 					<Grid item lg={9}>
