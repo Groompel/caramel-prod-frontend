@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import '@fontsource/montserrat/300.css';
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/manrope';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './routes';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import theme from './theme';
+import AppStyles from './styles';
+import { Provider } from 'react-redux';
+import store from './store';
+import { AppContextProvider } from './contexts/AppContext';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Provider store={store}>
+			<ThemeProvider theme={theme}>
+				<AppContextProvider>
+					<div className="App">
+						<BrowserRouter>
+							<CssBaseline />
+							<AppStyles />
+							<Routes />
+						</BrowserRouter>
+					</div>
+				</AppContextProvider>
+			</ThemeProvider>
+		</Provider>
+	);
 }
 
 export default App;
